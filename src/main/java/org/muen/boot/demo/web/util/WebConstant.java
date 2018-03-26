@@ -8,4 +8,6 @@ package org.muen.boot.demo.web.util;
  **/
 public class WebConstant {
     public static final String MD5KEY = "Parasomnia";//MD5加密密钥
+
+    public static final Integer PAGESIZE = 6;//默认分页大小
 }
