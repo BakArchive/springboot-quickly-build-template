@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- generator maven命令：mvn mybatis-generator:generate -->
+
+<generatorConfiguration>
+    <!-- 读取配置文件 -->
+    <properties resource="application.properties"/>
+
+
+    <context id="mysqlContext" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+        <!-- 表示对于生成映射文件中 涉及到mysql关键字自动使用分隔符进行引用，默认使用单引号 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 自动生成的java文件使用编码格式 -->
+        <property name="javaFileEncoding" value="UTF-8" />
+
+        <!-- 继承通用Mapper -->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="org.muen.boot.demo.common.BaseMapper"/>
+        </plugin>
+
+        <!-- 生成注释 -->
+        <commentGenerator >
+            <property name="suppressDate" value="true" />
+            <property name="addRemarkComments" value="true" />
+        </commentGenerator>
+
+        <!-- 连接属性配置 -->
+        <jdbcConnection driverClass="${spring.datasource.driversClasName}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+        </jdbcConnection>
+
+        <!--domain的路径 -->
+        <javaModelGenerator targetPackage="org.muen.boot.demo.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成SQL-XML的路径 -->
+        <sqlMapGenerator targetPackage="org.muen.boot.demo.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--DAO的路径 -->
+        <javaClientGenerator targetPackage="org.muen.boot.demo.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 自动生成表配置，需表名与对象名相同，否则逐一配置 -->
+        <table tableName="%" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <!--
+            逐一配置：
+            <table tableName="" domainObjectName="">
+                <generatedKey column="id" sqlStatement="Mysql"/>
+            </table>
+
+        -->
+
+
+    </context>
+
+
+</generatorConfiguration>
