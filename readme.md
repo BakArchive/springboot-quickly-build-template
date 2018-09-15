@@ -1,4 +1,4 @@
-#SpringBoot快速搭建模板
+# SpringBoot快速搭建模板
 
 **目前仅使用于mysql**
 
